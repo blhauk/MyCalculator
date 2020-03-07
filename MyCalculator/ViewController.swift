@@ -11,8 +11,18 @@ import UIKit
 class ViewController: UIViewController {
     @IBOutlet weak var displayLabel: UILabel!
     
+    // Change to unaryOperator, binaryOperator and assignOperator buttons
     @IBAction func calcButtonPressed(_ sender: UIButton) {
-        print("calcButtonPressed: \(sender.titleLabel?.text)")
+        let label = sender.titleLabel?.text
+        var operater: String
+        if label == "÷" {  // Convert to ASCII representatiom
+             operater = "/"
+        } else if label == "×" { // Convert to ASCII representatiom
+             operater = "*"
+        } else {
+            operater = label! // Already ASCII
+        }
+        print("calcButtonPressed: \(operater)")
     }
 
 

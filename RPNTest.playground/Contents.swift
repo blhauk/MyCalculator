@@ -1,9 +1,32 @@
 import UIKit
+//U+207a (superscript plus sign) U+2044 (fraction slash) U+208b (subscript minus)
+//let text =  @"\U+207a"
+//let text = "\u{1F50A}"
+let text1 =  "\u{207a}"
+let text2 =  "\u{2044}"
+let text3 =  "\u{208b}"
+let text4 = text1 + text2 + text3
+
+print(text1)
+print(text2)
+print(text3)
+print(text4)
+
 
 //Implementation of Shunting Yard algorithm
 // https://stackoverflow.com/questions/54463146/how-to-execute-multiplications-and-or-divisions-in-the-right-order
+//  Adopting and modifyiing solution provided by jLandis
 
-let testArray = ["10", "+", "5", "*" , "4", "+" , "10", "+", "20", "/", "2"]
+// let testArray = ["10.9", "+", "5", "*" , "4", "+" , "10", "+", "20", "/", "2.5"]
+
+//need to discard last element if it is an operator
+//let testArray = ["10.9", "+", "5", "*"]
+
+// need to deal with consecutive operators
+//let testArray = ["10.9", "+", "+", "5"]
+ // ±
+// Why does this kinda work? (should not be possible from view controller)
+let testArray = ["10.9", "10.9", "+", "5"]
 
 func getRPNArray(_ calculationArray: [String]) -> [String]{
     
@@ -128,7 +151,7 @@ func getResultFromRPNarray(_ myArray: [String]) -> Double {
 }//Func
 
 let rpnArray = getRPNArray(testArray)
-print(testArray)
-print(rpnArray)
+// print(testArray)
+// print(rpnArray)
 let result = getResultFromRPNarray(rpnArray)
 print(result)
