@@ -7,9 +7,6 @@ let text2 =  "\u{2044}"
 let text3 =  "\u{208b}"
 let text4 = text1 + text2 + text3
 
-print(text1)
-print(text2)
-print(text3)
 print(text4)
 
 
