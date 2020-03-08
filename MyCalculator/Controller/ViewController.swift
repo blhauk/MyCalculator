@@ -10,14 +10,9 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    enum calcArrayTypes {
-        case null
-        case binaryOperator
-        case number
-    }
-    
     private var isFinishedTypingNumber: Bool = true
     private var calcArrayLastType = calcArrayTypes.null
+    private var numAppended:  Bool = false
     
     private var displayValue: Double {
         get {
@@ -40,24 +35,39 @@ class ViewController: UIViewController {
         case "AC":
             displayValue = 0.0
             calcArray = []
+            calcArrayLastType = calcArrayTypes.null
             isFinishedTypingNumber = true
         case "+/-":
             displayValue *= -1
+            calcArray.append(String(displayValue))
+            numAppended  = true
+            calcArrayLastType = calcArrayTypes.number
             isFinishedTypingNumber = true
         case "%":
             displayValue /= 100
+            calcArray.append(String(displayValue))
+            numAppended  = true
+            calcArrayLastType = calcArrayTypes.number
             isFinishedTypingNumber = true
         default:
             displayValue = 1111
         }
         print("unaryOperator: \(label)")
+        print(calcArray)
     }
     
     @IBAction func binaryOperator(_ sender: UIButton) {
+        if calcArrayLastType == calcArrayTypes.binaryOperator {
+            return
+        }
+        
         let label = sender.titleLabel?.text
         isFinishedTypingNumber = true
-        calcArray.append(displayLabel.text!)
-        calcArrayLastType = calcArrayTypes.number
+        if !numAppended {
+            calcArray.append(displayLabel.text!)
+            numAppended = true
+            calcArrayLastType = calcArrayTypes.number
+        }
         var operater: String
         if label == "÷" {  // Convert to ASCII representatiom
              operater = "/"
@@ -67,23 +77,40 @@ class ViewController: UIViewController {
             operater = label! // Already ASCII
         }
         print("binaryOperator: \(operater)")
-        if calcArrayLastType != calcArrayTypes.binaryOperator {
-            calcArray.append(operater)
-            calcArrayLastType = calcArrayTypes.binaryOperator
-            isFinishedTypingNumber = true
-            print(calcArray)
-        }
+        calcArray.append(operater)
+        calcArrayLastType = calcArrayTypes.binaryOperator
+        isFinishedTypingNumber = true
+        numAppended = false
+        print(calcArray)
     }
     
     @IBAction func assignOperator(_ sender: UIButton) {
         let label = sender.titleLabel?.text
-        print("assignOperator: \(label)")
+        print(label)
+        if !numAppended {
+              calcArray.append(displayLabel.text!)
+              numAppended = true
+              calcArrayLastType = calcArrayTypes.number
+        }
+
+        let rpnArray = getRPNArray(calcArray)
+        let result = getResultFromRPNarray(rpnArray)
+
+        print("calcArray: \(calcArray)")
+        print("rpnArray: \(rpnArray)")
+        print("result: \(result)")
+        displayLabel.text = String(result)
+        calcArray = []
+        calcArrayLastType = calcArrayTypes.null
+        isFinishedTypingNumber = true
     }
     
     @IBAction func number(_ sender: UIButton) {
         if let numValue = sender.currentTitle {
             if isFinishedTypingNumber {
                 displayLabel.text = numValue
+                calcArrayLastType = calcArrayTypes.number
+                numAppended = false
                 isFinishedTypingNumber = false
             } else if numValue != "."  {
                 displayLabel.text = displayLabel.text! + numValue
