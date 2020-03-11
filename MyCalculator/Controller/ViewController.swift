@@ -57,18 +57,25 @@ class ViewController: UIViewController {
     }
     
     @IBAction func binaryOperator(_ sender: UIButton) {
+        let label = sender.titleLabel?.text
+        var operater: String
+        
         if calcArrayLastType == calcArrayTypes.binaryOperator {
+            let index = calcArray.count - 1
+            let oldbinaryOperator = calcArray[index]
+            calcArray[index] = label!
+            print("Changing binaryOperator from \(oldbinaryOperator) to \(label!)")
+            print(calcArray)
             return
         }
         
-        let label = sender.titleLabel?.text
         isFinishedTypingNumber = true
         if !numAppended {
             calcArray.append(displayLabel.text!)
             numAppended = true
             calcArrayLastType = calcArrayTypes.number
         }
-        var operater: String
+        
         if label == "÷" {  // Convert to ASCII representatiom
              operater = "/"
         } else if label == "×" { // Convert to ASCII representatiom
@@ -76,6 +83,7 @@ class ViewController: UIViewController {
         } else {
             operater = label! // Already ASCII
         }
+        
         print("binaryOperator: \(operater)")
         calcArray.append(operater)
         calcArrayLastType = calcArrayTypes.binaryOperator
@@ -100,7 +108,10 @@ class ViewController: UIViewController {
         print("rpnArray: \(rpnArray)")
         print("result: \(result)")
         displayLabel.text = String(result)
-        calcArray = []
+        
+        // This works, but will append a number to calcArray if numkey is pressed next
+        // (RPNArray ignores first elemnt as a result is returned without using first element)
+        calcArray = [displayLabel.text!]
         calcArrayLastType = calcArrayTypes.null
         isFinishedTypingNumber = true
     }
