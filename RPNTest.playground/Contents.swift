@@ -12,6 +12,7 @@ print(text4)
 
 //Implementation of Shunting Yard algorithm
 // https://stackoverflow.com/questions/54463146/how-to-execute-multiplications-and-or-divisions-in-the-right-order
+// 
 //  Adopting and modifyiing solution provided by jLandis
 
 // let testArray = ["10.9", "+", "5", "*" , "4", "+" , "10", "+", "20", "/", "2.5"]

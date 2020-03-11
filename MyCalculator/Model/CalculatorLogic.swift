@@ -6,6 +6,10 @@
 //  Copyright © 2020 blhauk. All rights reserved.
 //
 
+//Implementation of Shunting Yard algorithm
+// https://stackoverflow.com/questions/54463146/how-to-execute-multiplications-and-or-divisions-in-the-right-order
+//  Adopting and modifyiing solution provided by jLandis
+
 import Foundation
 
 public enum calcArrayTypes {

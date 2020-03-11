@@ -89,7 +89,7 @@ class ViewController: UIViewController {
         calcArrayLastType = calcArrayTypes.binaryOperator
         isFinishedTypingNumber = true
         numAppended = false
-        print(calcArray)
+        print("binaryOperator: \(calcArray)")
     }
     
     @IBAction func assignOperator(_ sender: UIButton) {
