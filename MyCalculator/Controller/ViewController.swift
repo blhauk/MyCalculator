@@ -107,7 +107,13 @@ class ViewController: UIViewController {
         print("calcArray: \(calcArray)")
         print("rpnArray: \(rpnArray)")
         print("result: \(result)")
-        displayLabel.text = String(result)
+        
+        let roundedResult = roundResult(result)
+        print("roundedResult = \(roundedResult)")
+        
+        let resultString = String(result)
+        print("result: \(resultString) - resultString")
+        displayLabel.text = resultString
         
         // This works, but will append a number to calcArray if numkey is pressed next
         // (RPNArray ignores first elemnt as a result is returned without using first element)
